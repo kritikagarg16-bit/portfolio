@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kritika Garg — Portfolio</title>
+<style>
+/* ══════════════════════════════
+   ROOT & RESET
+══════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:        #0b0c14;
+  --bg2:       #10111f;
+  --bg3:       #151728;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.12);
+
+  /* Pastel-neon dark palette */
+  --teal:      #5ecfbf;   /* muted teal */
+  --lavender:  #9b89d4;   /* dusty lavender */
+  --rose:      #d47fa6;   /* muted rose */
+  --amber:     #c9a84c;   /* dark amber-gold */
+  --sage:      #6aab8e;   /* muted sage green */
+  --sky:       #6ba3c8;   /* steel blue */
+  --peach:     #c47d5e;   /* earthy peach */
+
+  --text:      #c8cce8;
+  --text-dim:  #6b7099;
+  --white:     #e8ebff;
+  --glass:     rgba(255,255,255,0.04);
+  --glass2:    rgba(255,255,255,0.06);
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.7;
+}
+
+/* ══════════════════════════════
+   GRAIN TEXTURE OVERLAY
+══════════════════════════════ */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:.4;
+}
+
+/* ══════════════════════════════
+   SCROLLBAR
+══════════════════════════════ */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--lavender);border-radius:3px;}
+
+/* ══════════════════════════════
+   NAV
+══════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 3rem;
+  background:rgba(11,12,20,.88);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-size:1.1rem;font-weight:800;letter-spacing:3px;
+  color:var(--white);
+  display:flex;align-items:center;gap:.5rem;
+}
+.logo em{
+  font-style:normal;
+  background:linear-gradient(90deg,var(--teal),var(--lavender));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  color:var(--text-dim);text-decoration:none;
+  font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;
+  transition:color .3s;
+}
+.nav-links a:hover{color:var(--teal);}
+
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s;}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:4rem;
+  padding:7rem 5rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-glow{
+  position:absolute;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(94,207,191,.08) 0%,transparent 70%);
+  right:-150px;top:-100px;
+  pointer-events:none;
+}
+.hero-glow2{
+  position:absolute;
+  width:400px;height:400px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(155,137,212,.07) 0%,transparent 70%);
+  left:-100px;bottom:-100px;
+  pointer-events:none;
+}
+.hero-left{position:relative;z-index:1;}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.3rem .9rem;
+  border-radius:4px;
+  background:rgba(94,207,191,.08);
+  border:1px solid rgba(94,207,191,.2);
+  color:var(--teal);
+  font-size:.72rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+  margin-bottom:1.4rem;
+}
+.hero h1{
+  font-size:clamp(2.2rem,4vw,3.8rem);
+  font-weight:900;
+  line-height:1.1;
+  color:var(--white);
+  margin-bottom:.8rem;
+}
+.hero h1 span{
+  background:linear-gradient(135deg,var(--teal) 0%,var(--lavender) 60%,var(--rose) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-desc{
+  font-size:.97rem;color:var(--text-dim);
+  max-width:460px;line-height:1.85;margin-bottom:2rem;
+}
+.hero-desc strong{color:var(--teal);font-weight:600;}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.75rem 1.8rem;
+  background:linear-gradient(135deg,rgba(94,207,191,.15),rgba(155,137,212,.15));
+  border:1px solid rgba(94,207,191,.3);
+  border-radius:6px;
+  color:var(--teal);font-weight:700;font-size:.88rem;
+  text-decoration:none;letter-spacing:.5px;
+  transition:all .3s;
+}
+.hero-cta:hover{
+  background:linear-gradient(135deg,rgba(94,207,191,.25),rgba(155,137,212,.25));
+  box-shadow:0 0 30px rgba(94,207,191,.15);
+  transform:translateY(-2px);
+}
+.hero-right{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;gap:1rem;
+}
+
+/* Stat Cards (hero right) */
+.stat-cards{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+.stat-c{
+  padding:1.2rem 1.4rem;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:12px;
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+.stat-c:hover{
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:0 12px 40px rgba(0,0,0,.4);
+  border-color:var(--border2);
+}
+.stat-c .num{
+  font-size:2rem;font-weight:900;
+  background:linear-gradient(135deg,var(--teal),var(--lavender));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  display:block;
+}
+.stat-c .label{font-size:.75rem;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-top:.2rem;}
+.stat-c .icon-s{font-size:1.4rem;margin-bottom:.4rem;display:block;}
+
+/* ══════════════════════════════
+   GENERIC SECTION
+══════════════════════════════ */
+.sec{padding:5rem 5rem;}
+.sec-alt{background:var(--bg2);}
+.sec-title{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:3rem;
+}
+.sec-title h2{
+  font-size:1.6rem;font-weight:800;color:var(--white);
+}
+.sec-title .accent-line{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,var(--border2),transparent);
+}
+.sec-title .tag{
+  font-size:.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+  padding:.25rem .8rem;border-radius:4px;
+}
+.tag-teal  {color:var(--teal);  background:rgba(94,207,191,.09); border:1px solid rgba(94,207,191,.2);}
+.tag-lav   {color:var(--lavender); background:rgba(155,137,212,.09); border:1px solid rgba(155,137,212,.2);}
+.tag-rose  {color:var(--rose);  background:rgba(212,127,166,.09); border:1px solid rgba(212,127,166,.2);}
+.tag-amber {color:var(--amber); background:rgba(201,168,76,.09); border:1px solid rgba(201,168,76,.2);}
+.tag-sage  {color:var(--sage);  background:rgba(106,171,142,.09); border:1px solid rgba(106,171,142,.2);}
+
+/* ══════════════════════════════
+   ABOUT — COLUMNS
+══════════════════════════════ */
+.about-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:2rem;
+}
+.about-story{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:2rem;
+}
+.about-story p{
+  color:var(--text-dim);font-size:.93rem;line-height:1.95;margin-bottom:1rem;
+}
+.about-story p:last-child{margin-bottom:0;}
+.about-story strong{color:var(--teal);}
+.about-facts{display:flex;flex-direction:column;gap:.9rem;}
+.fact-row{
+  display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:center;
+  padding:1rem 1.2rem;
+  background:var(--bg3);border:1px solid var(--border);border-radius:12px;
+  transition:border-color .3s,transform .3s;
+}
+.fact-row:hover{border-color:var(--border2);transform:translateX(4px);}
+.fact-icon{
+  width:42px;height:42px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;
+  flex-shrink:0;
+}
+.fi-teal  {background:rgba(94,207,191,.1);}
+.fi-lav   {background:rgba(155,137,212,.1);}
+.fi-rose  {background:rgba(212,127,166,.1);}
+.fi-amber {background:rgba(201,168,76,.1);}
+.fi-sage  {background:rgba(106,171,142,.1);}
+.fact-info .title{font-size:.88rem;font-weight:700;color:var(--white);}
+.fact-info .sub{font-size:.77rem;color:var(--text-dim);}
+
+/* ══════════════════════════════
+   DREAM SECTION
+══════════════════════════════ */
+.dream-wrap{
+  display:grid;
+  grid-template-columns:1fr 1.6fr;
+  gap:2rem;align-items:stretch;
+}
+.dream-left{
+  background:linear-gradient(145deg,rgba(94,207,191,.06),rgba(155,137,212,.06));
+  border:1px solid rgba(94,207,191,.15);
+  border-radius:16px;
+  padding:2.5rem;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;gap:1rem;
+}
+.plane-icon{
+  font-size:5rem;
+  animation:planefloat 4s ease-in-out infinite;
+}
+@keyframes planefloat{
+  0%,100%{transform:translateY(0) rotate(-5deg);}
+  50%{transform:translateY(-14px) rotate(2deg);}
+}
+.dream-title{
+  font-size:1.3rem;font-weight:800;color:var(--white);
+}
+.dream-sub{font-size:.82rem;color:var(--text-dim);line-height:1.7;}
+.india-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.2rem;
+  background:rgba(106,171,142,.1);
+  border:1px solid rgba(106,171,142,.25);
+  border-radius:50px;
+  color:var(--sage);font-weight:700;font-size:.8rem;letter-spacing:1px;
+  margin-top:.5rem;
+}
+.dream-right{
+  display:flex;flex-direction:column;gap:1rem;
+}
+.dream-card{
+  padding:1.3rem 1.5rem;
+  background:var(--bg3);border:1px solid var(--border);border-radius:12px;
+  display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;
+  transition:transform .3s,box-shadow .3s;
+}
+.dream-card:hover{transform:translateX(6px);box-shadow:-4px 0 0 var(--teal);}
+.dc-icon{font-size:1.6rem;}
+.dc-title{font-size:.9rem;font-weight:700;color:var(--white);}
+.dc-desc{font-size:.8rem;color:var(--text-dim);margin-top:.15rem;}
+
+/* ══════════════════════════════
+   ACHIEVEMENTS — COLUMNS
+══════════════════════════════ */
+.ach-columns{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.2rem;
+}
+.ach-col{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  transition:transform .35s,box-shadow .35s;
+}
+.ach-col:hover{
+  transform:translateY(-8px) scale(1.01);
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+.ach-col-head{
+  padding:1.2rem 1.5rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.ach-sport{background:linear-gradient(135deg,rgba(94,207,191,.18),rgba(94,207,191,.05));}
+.ach-acad {background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.05));}
+.ach-lead {background:linear-gradient(135deg,rgba(155,137,212,.18),rgba(155,137,212,.05));}
+.ach-col-icon{font-size:1.8rem;}
+.ach-col-title{font-size:.85rem;font-weight:800;color:var(--white);letter-spacing:.5px;}
+.ach-col-sub{font-size:.72rem;color:var(--text-dim);}
+.ach-col-body{padding:0 1.5rem 1.5rem;}
+.ach-item{
+  padding:.7rem 0;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:.7rem;
+}
+.ach-item:last-child{border-bottom:none;}
+.ach-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+}
+.dot-teal  {background:var(--teal);}
+.dot-amber {background:var(--amber);}
+.dot-lav   {background:var(--lavender);}
+.ach-item-text .ititle{font-size:.85rem;font-weight:600;color:var(--white);}
+.ach-item-text .isub  {font-size:.75rem;color:var(--text-dim);}
+.level-pill{
+  margin-left:auto;flex-shrink:0;
+  padding:.2rem .65rem;border-radius:4px;font-size:.68rem;font-weight:700;letter-spacing:.5px;
+}
+.pill-teal  {background:rgba(94,207,191,.1); color:var(--teal); border:1px solid rgba(94,207,191,.2);}
+.pill-amber {background:rgba(201,168,76,.1); color:var(--amber);border:1px solid rgba(201,168,76,.2);}
+.pill-lav   {background:rgba(155,137,212,.1);color:var(--lavender);border:1px solid rgba(155,137,212,.2);}
+.pill-rose  {background:rgba(212,127,166,.1);color:var(--rose);  border:1px solid rgba(212,127,166,.2);}
+.pill-sage  {background:rgba(106,171,142,.1);color:var(--sage);  border:1px solid rgba(106,171,142,.2);}
+
+/* ══════════════════════════════
+   INFOGRAPHIC — SKILLS
+══════════════════════════════ */
+.skills-infographic{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:2rem;
+}
+.skill-bars{
+  background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:2rem;
+}
+.skill-bars h3{
+  font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:1.5rem;font-weight:700;
+}
+.bar-item{margin-bottom:1.2rem;}
+.bar-item:last-child{margin-bottom:0;}
+.bar-label{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:.45rem;
+}
+.bar-label span:first-child{font-size:.85rem;font-weight:600;color:var(--white);}
+.bar-label span:last-child {font-size:.75rem;color:var(--text-dim);}
+.bar-track{
+  height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;border-radius:3px;
+  animation:barGrow 1.5s ease forwards;
+  transform-origin:left;
+}
+@keyframes barGrow{from{width:0;}}
+.bf-teal  {background:linear-gradient(90deg,rgba(94,207,191,.3),var(--teal));}
+.bf-lav   {background:linear-gradient(90deg,rgba(155,137,212,.3),var(--lavender));}
+.bf-rose  {background:linear-gradient(90deg,rgba(212,127,166,.3),var(--rose));}
+.bf-amber {background:linear-gradient(90deg,rgba(201,168,76,.3),var(--amber));}
+.bf-sage  {background:linear-gradient(90deg,rgba(106,171,142,.3),var(--sage));}
+.bf-sky   {background:linear-gradient(90deg,rgba(107,163,200,.3),var(--sky));}
+
+/* Radar / Hexagon Stat Chart */
+.radar-wrap{
+  background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:2rem;
+  display:flex;flex-direction:column;gap:1.4rem;
+}
+.radar-wrap h3{
+  font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-dim);font-weight:700;
+}
+.hex-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+}
+.hex-item{
+  text-align:center;
+  padding:1.1rem .5rem;
+  background:var(--glass2);
+  border:1px solid var(--border);border-radius:12px;
+  transition:transform .3s,border-color .3s;
+  cursor:default;
+}
+.hex-item:hover{transform:scale(1.06);}
+.hex-item:hover .hex-icon{transform:scale(1.15);}
+.hex-icon{font-size:1.7rem;display:block;margin-bottom:.4rem;transition:transform .3s;}
+.hex-val{font-size:1.1rem;font-weight:800;color:var(--white);}
+.hex-name{font-size:.7rem;color:var(--text-dim);margin-top:.15rem;letter-spacing:.5px;}
+
+/* ══════════════════════════════
+   SPORTS INFOGRAPHIC
+══════════════════════════════ */
+.sports-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;
+}
+.sport-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;transition:transform .35s,box-shadow .35s;
+  position:relative;
+}
+.sport-card::before{
+  content:'';position:absolute;inset:0;
+  opacity:0;transition:opacity .35s;
+  pointer-events:none;
+}
+.sc-teal::before{background:radial-gradient(circle at top right,rgba(94,207,191,.07),transparent 60%);}
+.sc-rose::before{background:radial-gradient(circle at top right,rgba(212,127,166,.07),transparent 60%);}
+.sc-lav::before {background:radial-gradient(circle at top right,rgba(155,137,212,.07),transparent 60%);}
+.sport-card:hover{transform:translateY(-7px);box-shadow:0 18px 60px rgba(0,0,0,.45);}
+.sport-card:hover::before{opacity:1;}
+.sport-banner{
+  height:7px;
+}
+.sb-teal  {background:linear-gradient(90deg,var(--teal),rgba(94,207,191,.2));}
+.sb-rose  {background:linear-gradient(90deg,var(--rose),rgba(212,127,166,.2));}
+.sb-lav   {background:linear-gradient(90deg,var(--lavender),rgba(155,137,212,.2));}
+.sport-body{padding:1.8rem 1.5rem;}
+.sport-emoji{font-size:2.5rem;margin-bottom:.8rem;display:block;}
+.sport-name{font-size:1rem;font-weight:800;color:var(--white);margin-bottom:.3rem;}
+.sport-level{
+  display:inline-block;margin-bottom:.8rem;
+  padding:.2rem .7rem;border-radius:4px;
+  font-size:.7rem;font-weight:700;letter-spacing:1px;
+}
+.sport-desc{font-size:.8rem;color:var(--text-dim);line-height:1.7;}
+.medal-row{display:flex;gap:.4rem;margin-top:1rem;}
+.medal{font-size:1.2rem;}
+
+/* ══════════════════════════════
+   HOBBIES — COLUMN GRID
+══════════════════════════════ */
+.hobbies-grid{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;
+}
+.hobby-col{
+  background:var(--bg3);border:1px solid var(--border);border-radius:14px;
+  padding:1.5rem 1rem;text-align:center;
+  transition:transform .35s,border-color .35s,box-shadow .35s;
+  cursor:default;
+  position:relative;overflow:hidden;
+}
+.hobby-col::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  transform:scaleX(0);transition:transform .35s;
+  border-radius:0 0 14px 14px;
+}
+.hc-1::after{background:var(--teal);}
+.hc-2::after{background:var(--lavender);}
+.hc-3::after{background:var(--rose);}
+.hc-4::after{background:var(--amber);}
+.hc-5::after{background:var(--sage);}
+.hc-6::after{background:var(--sky);}
+.hobby-col:hover{transform:translateY(-6px);}
+.hobby-col:hover::after{transform:scaleX(1);}
+.hc-1:hover{border-color:rgba(94,207,191,.3); box-shadow:0 0 25px rgba(94,207,191,.07);}
+.hc-2:hover{border-color:rgba(155,137,212,.3);box-shadow:0 0 25px rgba(155,137,212,.07);}
+.hc-3:hover{border-color:rgba(212,127,166,.3);box-shadow:0 0 25px rgba(212,127,166,.07);}
+.hc-4:hover{border-color:rgba(201,168,76,.3); box-shadow:0 0 25px rgba(201,168,76,.07);}
+.hc-5:hover{border-color:rgba(106,171,142,.3);box-shadow:0 0 25px rgba(106,171,142,.07);}
+.hc-6:hover{border-color:rgba(107,163,200,.3);box-shadow:0 0 25px rgba(107,163,200,.07);}
+.hobby-emoji{font-size:2rem;margin-bottom:.7rem;display:block;}
+.hobby-name{font-size:.82rem;font-weight:700;color:var(--white);}
+.hobby-desc{font-size:.72rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5;}
+
+/* ══════════════════════════════
+   LEADERSHIP SECTION
+══════════════════════════════ */
+.leadership-wrap{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;
+}
+.lead-main{
+  grid-column:1/3;
+  background:var(--bg3);border:1px solid var(--border);border-radius:16px;
+  padding:2.2rem;
+  display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start;
+  transition:transform .3s,box-shadow .3s;
+}
+.lead-main:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 50px rgba(0,0,0,.4);
+  border-color:rgba(201,168,76,.2);
+}
+.crown-wrap{
+  width:76px;height:76px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));
+  border:1.5px solid rgba(201,168,76,.3);
+  display:flex;align-items:center;justify-content:center;font-size:2rem;
+}
+.lead-main h3{font-size:1.2rem;font-weight:800;color:var(--white);margin-bottom:.5rem;}
+.lead-main p{font-size:.88rem;color:var(--text-dim);line-height:1.85;}
+.lead-main p strong{color:var(--amber);}
+.lead-values{display:flex;flex-direction:column;gap:1rem;}
+.lv-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:12px;
+  padding:1.2rem 1.3rem;
+  transition:transform .3s,border-color .3s;
+}
+.lv-card:hover{transform:scale(1.03);border-color:var(--border2);}
+.lv-icon{font-size:1.3rem;margin-bottom:.4rem;display:block;}
+.lv-title{font-size:.85rem;font-weight:700;color:var(--white);}
+.lv-sub{font-size:.75rem;color:var(--text-dim);margin-top:.2rem;}
+
+/* ══════════════════════════════
+   TIMELINE — JOURNEY
+══════════════════════════════ */
+.timeline{position:relative;padding-left:2rem;}
+.timeline::before{
+  content:'';position:absolute;left:.5rem;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,var(--teal),var(--lavender),var(--rose),transparent);
+}
+.tl-item{
+  position:relative;margin-bottom:2rem;padding-left:2rem;
+}
+.tl-item::before{
+  content:'';position:absolute;left:-.5rem;top:.3rem;
+  width:10px;height:10px;border-radius:50%;
+  border:2px solid;background:var(--bg);
+}
+.tl-teal::before {border-color:var(--teal);  box-shadow:0 0 10px rgba(94,207,191,.4);}
+.tl-lav::before  {border-color:var(--lavender);box-shadow:0 0 10px rgba(155,137,212,.4);}
+.tl-rose::before {border-color:var(--rose);  box-shadow:0 0 10px rgba(212,127,166,.4);}
+.tl-amber::before{border-color:var(--amber); box-shadow:0 0 10px rgba(201,168,76,.4);}
+.tl-sage::before {border-color:var(--sage);  box-shadow:0 0 10px rgba(106,171,142,.4);}
+.tl-year{font-size:.7rem;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:.2rem;}
+.tl-title{font-size:.92rem;font-weight:700;color:var(--white);}
+.tl-desc{font-size:.8rem;color:var(--text-dim);margin-top:.2rem;line-height:1.6;}
+
+/* ══════════════════════════════
+   CONTACT
+══════════════════════════════ */
+#contact{
+  background:var(--bg2);
+  padding:5rem;
+  text-align:center;
+}
+.contact-inner{max-width:600px;margin:0 auto;}
+.contact-inner h2{
+  font-size:2rem;font-weight:900;color:var(--white);margin-bottom:.5rem;
+}
+.contact-inner .sub{
+  font-size:.9rem;color:var(--text-dim);margin-bottom:2.5rem;line-height:1.8;
+}
+.contact-grid{
+  display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;
+}
+.contact-btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.85rem 1.8rem;
+  border-radius:8px;
+  font-size:.88rem;font-weight:700;text-decoration:none;
+  transition:transform .3s,box-shadow .3s;
+}
+.cb-email{
+  background:rgba(94,207,191,.08);
+  border:1px solid rgba(94,207,191,.25);
+  color:var(--teal);
+}
+.cb-email:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(94,207,191,.12);
+  background:rgba(94,207,191,.14);
+}
+.quote-block{
+  margin-top:3rem;padding:1.5rem 2rem;
+  background:var(--bg3);border:1px solid var(--border);border-radius:12px;
+  border-left:3px solid var(--lavender);
+}
+.quote-block p{
+  font-size:1rem;font-style:italic;color:var(--text-dim);line-height:1.9;
+}
+.quote-block p span{color:var(--lavender);}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{
+  background:var(--bg);
+  text-align:center;
+  padding:2rem;
+  border-top:1px solid var(--border);
+  font-size:.78rem;color:var(--text-dim);
+}
+footer strong{color:var(--teal);}
+
+/* ══════════════════════════════
+   POP-ON-SCROLL
+══════════════════════════════ */
+.pop{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.pop.visible{opacity:1;transform:translateY(0);}
+.pop-delay-1{transition-delay:.1s;}
+.pop-delay-2{transition-delay:.2s;}
+.pop-delay-3{transition-delay:.3s;}
+.pop-delay-4{transition-delay:.4s;}
+.pop-delay-5{transition-delay:.5s;}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr;padding:7rem 3rem 4rem;text-align:center;}
+  .hero-desc{max-width:100%;}
+  .hero-glow{display:none;}
+  .stat-cards{grid-template-columns:repeat(4,1fr);}
+  .ach-columns{grid-template-columns:1fr 1fr;}
+  .sports-row{grid-template-columns:1fr 1fr;}
+  .hobbies-grid{grid-template-columns:repeat(3,1fr);}
+  .leadership-wrap{grid-template-columns:1fr;}
+  .lead-main{grid-column:auto;}
+  .lead-values{flex-direction:row;}
+  .skills-infographic{grid-template-columns:1fr;}
+  .sec{padding:4rem 3rem;}
+  #contact{padding:4rem 3rem;}
+}
+@media(max-width:768px){
+  nav{padding:.9rem 1.5rem;}
+  .nav-links{
+    display:none;flex-direction:column;
+    position:absolute;top:100%;left:0;right:0;
+    background:rgba(11,12,20,.97);
+    backdrop-filter:blur(20px);
+    padding:1.5rem;gap:1.2rem;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-links.open{display:flex;}
+  .hamburger{display:flex;}
+  .stat-cards{grid-template-columns:1fr 1fr;}
+  .ach-columns{grid-template-columns:1fr;}
+  .sports-row{grid-template-columns:1fr;}
+  .hobbies-grid{grid-template-columns:repeat(2,1fr);}
+  .lead-values{flex-direction:column;}
+  .dream-wrap{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .skills-infographic{grid-template-columns:1fr;}
+  .hex-grid{grid-template-columns:repeat(3,1fr);}
+  .sec{padding:3.5rem 1.5rem;}
+  #contact{padding:3.5rem 1.5rem;}
+  .contact-grid{flex-direction:column;align-items:center;}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2rem;}
+  .stat-cards{grid-template-columns:1fr 1fr;}
+  .hobbies-grid{grid-template-columns:1fr 1fr;}
+  .hex-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="logo">KG &nbsp;<em>✦</em></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#dream">Dream</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#sports">Sports</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-left">
+    <div class="hero-tag">✦ &nbsp; Portfolio 2026</div>
+    <h1>Kritika <span>Garg</span></h1>
+    <p class="hero-desc">
+      B.Tech student in <strong>Computer Engineering &amp; Artificial Intelligence</strong> — 
+      exploring the intersection of technology, AI, and real-world problem solving. 
+      Athlete. Leader. Dreamer.
+    </p>
+    <a href="#contact" class="hero-cta">Get in Touch &nbsp;→</a>
+  </div>
+  <div class="hero-right">
+    <div class="stat-cards">
+      <div class="stat-c pop">
+        <span class="icon-s">🎓</span>
+        <span class="num">B.Tech</span>
+        <span class="label">CE &amp; AI</span>
+      </div>
+      <div class="stat-c pop pop-delay-1">
+        <span class="icon-s">🏅</span>
+        <span class="num">3+</span>
+        <span class="label">Sport Wins</span>
+      </div>
+      <div class="stat-c pop pop-delay-2">
+        <span class="icon-s">👑</span>
+        <span class="num">2 Yrs</span>
+        <span class="label">Head Girl</span>
+      </div>
+      <div class="stat-c pop pop-delay-3">
+        <span class="icon-s">✈️</span>
+        <span class="num">IAF</span>
+        <span class="label">Dream Goal</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="sec sec-alt" id="about">
+  <div class="sec-title">
+    <span class="tag tag-teal">About</span>
+    <h2>Who I Am</h2>
+    <div class="accent-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-story pop">
+      <p>
+        Hi, I'm <strong>Kritika Garg</strong> — a B.Tech student specialising in 
+        <strong>Computer Engineering and Artificial Intelligence</strong>. 
+        I come from a <strong>non-tech background</strong>, which makes my dive into 
+        the world of programming and AI all the more meaningful.
+      </p>
+      <p>
+        I'm currently exploring the intersection of <strong>technology, artificial intelligence,
+        and real-world problem solving</strong> — building skills in programming, computer science,
+        and AI-driven solutions while balancing an athlete's discipline and a leader's mindset.
+      </p>
+      <p>
+        What defines me is the unique combo: academics + sports + leadership + creativity. 
+        As I once put it — <strong>"The combo of all in once is a hit."</strong>
+      </p>
+    </div>
+    <div class="about-facts">
+      <div class="fact-row pop pop-delay-1">
+        <div class="fact-icon fi-teal">🎓</div>
+        <div class="fact-info">
+          <div class="title">B.Tech — CE &amp; AI</div>
+          <div class="sub">Currently pursuing degree</div>
+        </div>
+      </div>
+      <div class="fact-row pop pop-delay-2">
+        <div class="fact-icon fi-lav">🌱</div>
+        <div class="fact-info">
+          <div class="title">Non-tech Background</div>
+          <div class="sub">Passion-driven tech explorer</div>
+        </div>
+      </div>
+      <div class="fact-row pop pop-delay-3">
+        <div class="fact-icon fi-amber">👑</div>
+        <div class="fact-info">
+          <div class="title">Head Girl · 2 Years</div>
+          <div class="sub">Initiative &amp; school leadership</div>
+        </div>
+      </div>
+      <div class="fact-row pop pop-delay-4">
+        <div class="fact-icon fi-rose">🏅</div>
+        <div class="fact-info">
+          <div class="title">Multi-sport Champion</div>
+          <div class="sub">Badminton · Karate · Boxing</div>
+        </div>
+      </div>
+      <div class="fact-row pop pop-delay-5">
+        <div class="fact-icon fi-sage">✈️</div>
+        <div class="fact-info">
+          <div class="title">IAF Aspirant</div>
+          <div class="sub">Post-graduation dream</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DREAM ══ -->
+<section class="sec" id="dream">
+  <div class="sec-title">
+    <span class="tag tag-sage">Dream</span>
+    <h2>My Mission</h2>
+    <div class="accent-line"></div>
+  </div>
+  <div class="dream-wrap">
+    <div class="dream-left pop">
+      <span class="plane-icon">✈️</span>
+      <div class="dream-title">Indian Air Force</div>
+      <div class="dream-sub">After completing my degree, I will chase my dream of serving the nation in uniform. The sky is not the limit — it's the beginning.</div>
+      <span class="india-badge">🇮🇳 &nbsp; IAF Aspirant</span>
+    </div>
+    <div class="dream-right">
+      <div class="dream-card pop pop-delay-1">
+        <div class="dc-icon">💻</div>
+        <div>
+          <div class="dc-title">Computer Engineering &amp; AI</div>
+          <div class="dc-desc">Building a strong technical foundation in programming, computer science and artificial intelligence to complement my service ambitions.</div>
+        </div>
+      </div>
+      <div class="dream-card pop pop-delay-2">
+        <div class="dc-icon">🏆</div>
+        <div>
+          <div class="dc-title">Athlete's Discipline</div>
+          <div class="dc-desc">State-level badminton, district karate and zone boxing have instilled the resilience and mental toughness the IAF demands.</div>
+        </div>
+      </div>
+      <div class="dream-card pop pop-delay-3">
+        <div class="dc-icon">👑</div>
+        <div>
+          <div class="dc-title">Leadership Track Record</div>
+          <div class="dc-desc">Two years as Head Girl taught me to lead under pressure, initiate change and earn the trust of peers, faculty and family.</div>
+        </div>
+      </div>
+      <div class="dream-card pop pop-delay-4">
+        <div class="dc-icon">🌟</div>
+        <div>
+          <div class="dc-title">Non-tech → Tech Pioneer</div>
+          <div class="dc-desc">Breaking into Computer Engineering from a non-tech background proves that no obstacle is too great when driven by purpose.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACHIEVEMENTS ══ -->
+<section class="sec sec-alt" id="achievements">
+  <div class="sec-title">
+    <span class="tag tag-amber">Achievements</span>
+    <h2>Milestones</h2>
+    <div class="accent-line"></div>
+  </div>
+  <div class="ach-columns">
+
+    <!-- Sports Column -->
+    <div class="ach-col pop">
+      <div class="ach-col-head ach-sport">
+        <div class="ach-col-icon">🏅</div>
+        <div>
+          <div class="ach-col-title">Sports</div>
+          <div class="ach-col-sub">Athletic achievements</div>
+        </div>
+      </div>
+      <div class="ach-col-body">
+        <div class="ach-item">
+          <div class="ach-dot dot-teal"></div>
+          <div class="ach-item-text">
+            <div class="ititle">Badminton Champion 🏸</div>
+            <div class="isub">Speed · Agility · Strategy</div>
+          </div>
+          <span class="level-pill pill-teal">State</span>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot dot-teal"></div>
+          <div class="ach-item-text">
+            <div class="ititle">Karate Winner 🥋</div>
+            <div class="isub">Focus · Discipline · Combat</div>
+          </div>
+          <span class="level-pill pill-rose">District</span>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot dot-teal"></div>
+          <div class="ach-item-text">
+            <div class="ititle">Boxing Winner 🥊</div>
+            <div class="isub">Strength · Mental Toughness</div>
+          </div>
+          <span class="level-pill pill-lav">Zone</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Academics Column -->
+    <div class="ach-col pop pop-delay-2">
+      <div class="ach-col-head ach-acad">
+        <div class="ach-col-icon">🎓</div>
+        <div>
+          <div class="ach-col-title">Academics</div>
+          <div class="ach-col-sub">Scholastic excellence</div>
+        </div>
+      </div>
+      <div class="ach-col-body">
+        <div class="ach-item">
+          <div class="ach-dot dot-amber"></div>
+          <div class="ach-item-text">
+            <div class="ititle">Certificates 📜</div>
+            <div class="isub">Multiple academic awards</div>
+          </div>
+          <span class="level-pill pill-amber">Earned</span>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot dot-amber"></div>
+          <div class="ach-item-text">
+            <div class="ititle">Trophies 🏆</div>
+            <div class="isub">School-level recognition</div>
+          </div>
+          <span class="level-pill pill-amber">Earned</span>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot dot-amber"></div>
+          <div class="ach-item-text">
+            <div class="ititle">Medals 🥇</div>
+            <div class="isub">Academic excellence medals</div>
+          </div>
+          <span class="level-pill pill-amber">Earned</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leadership Column -->
+    <div class="ach-col pop pop-delay-4">
+      <div class="ach-col-head ach-lead">
+        <div class="ach-col-icon">👑</div>
+        <div>
+          <div class="ach-col-title">Leadership</div>
+          <div class="ach-col-sub">Making an impact</div>
+        </div>
+      </div>
+      <div class="ach-col-body">
+        <div class="ach-item">
+          <div class="ach-dot dot-lav"></div>
+          <div class="ach-item-text">
+            <div class="ititle">Head Girl</div>
+            <div class="isub">2 consecutive years</div>
+          </div>
+          <span class="level-pill pill-lav">2 Yrs</span>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot dot-lav"></div>
+          <div class="ach-item-text">
+            <div class="ititle">School Initiatives</div>
+            <div class="isub">Led &amp; launched programs</div>
+          </div>
+          <span class="level-pill pill-sage">Leader</span>
+        </div>
+        <div class="ach-item">
+          <div class="ach-dot dot-lav"></div>
+          <div class="ach-item-text">
+            <div class="ititle">Family Pride</div>
+            <div class="isub">Parents proud of her leadership</div>
+          </div>
+          <span class="level-pill pill-rose">✨</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SKILLS INFOGRAPHIC ══ -->
+<section class="sec" id="skills">
+  <div class="sec-title">
+    <span class="tag tag-lav">Skills</span>
+    <h2>Capabilities</h2>
+    <div class="accent-line"></div>
+  </div>
+  <div class="skills-infographic">
+    <!-- Skill Bars -->
+    <div class="skill-bars pop">
+      <h3>Proficiency Overview</h3>
+      <div class="bar-item">
+        <div class="bar-label">
+          <span>Programming &amp; CS</span><span>Advancing</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bf-teal" style="width:70%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">
+          <span>Artificial Intelligence</span><span>Exploring</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bf-lav" style="width:60%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">
+          <span>Leadership &amp; Communication</span><span>Strong</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bf-amber" style="width:90%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">
+          <span>Athletic Discipline</span><span>Expert</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bf-rose" style="width:95%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">
+          <span>Problem Solving</span><span>Growing</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bf-sage" style="width:75%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label">
+          <span>Creative Arts</span><span>Proficient</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bf-sky" style="width:80%"></div></div>
+      </div>
+    </div>
+    <!-- Hex Stats -->
+    <div class="radar-wrap pop pop-delay-2">
+      <h3>Core Traits</h3>
+      <div class="hex-grid">
+        <div class="hex-item">
+          <span class="hex-icon">⚡</span>
+          <div class="hex-val" style="color:var(--teal)">95%</div>
+          <div class="hex-name">Drive</div>
+        </div>
+        <div class="hex-item">
+          <span class="hex-icon">🎯</span>
+          <div class="hex-val" style="color:var(--lavender)">90%</div>
+          <div class="hex-name">Focus</div>
+        </div>
+        <div class="hex-item">
+          <span class="hex-icon">🤝</span>
+          <div class="hex-val" style="color:var(--rose)">88%</div>
+          <div class="hex-name">Team</div>
+        </div>
+        <div class="hex-item">
+          <span class="hex-icon">🧠</span>
+          <div class="hex-val" style="color:var(--amber)">82%</div>
+          <div class="hex-name">Intellect</div>
+        </div>
+        <div class="hex-item">
+          <span class="hex-icon">🏃</span>
+          <div class="hex-val" style="color:var(--sage)">97%</div>
+          <div class="hex-name">Grit</div>
+        </div>
+        <div class="hex-item">
+          <span class="hex-icon">💡</span>
+          <div class="hex-val" style="color:var(--sky)">78%</div>
+          <div class="hex-name">Innov.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPORTS ══ -->
+<section class="sec sec-alt" id="sports">
+  <div class="sec-title">
+    <span class="tag tag-rose">Sports</span>
+    <h2>On The Field</h2>
+    <div class="accent-line"></div>
+  </div>
+  <div class="sports-row">
+
+    <div class="sport-card sc-teal pop">
+      <div class="sport-banner sb-teal"></div>
+      <div class="sport-body">
+        <span class="sport-emoji">🏸</span>
+        <div class="sport-name">Badminton</div>
+        <span class="sport-level pill-teal level-pill">State Level Champion</span>
+        <div class="sport-desc">
+          Competed at the highest regional level, showcasing speed, agility, footwork, and tactical brilliance on the court.
+        </div>
+        <div class="medal-row">
+          <span class="medal">🥇</span>
+          <span class="medal">🏆</span>
+          <span class="medal">🎖️</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-card sc-rose pop pop-delay-2">
+      <div class="sport-banner sb-rose"></div>
+      <div class="sport-body">
+        <span class="sport-emoji">🥋</span>
+        <div class="sport-name">Karate</div>
+        <span class="sport-level pill-rose level-pill">District Level Winner</span>
+        <div class="sport-desc">
+          Demonstrated iron discipline, razor-sharp focus, and martial arts mastery to claim victory at district-level Karate.
+        </div>
+        <div class="medal-row">
+          <span class="medal">🥈</span>
+          <span class="medal">🎖️</span>
+          <span class="medal">🏅</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-card sc-lav pop pop-delay-4">
+      <div class="sport-banner sb-lav"></div>
+      <div class="sport-body">
+        <span class="sport-emoji">🥊</span>
+        <div class="sport-name">Boxing</div>
+        <span class="sport-level pill-lav level-pill">Zone Level Winner</span>
+        <div class="sport-desc">
+          Proved raw strength, mental toughness, and fighting spirit in the boxing ring — winning at zone-level competitions.
+        </div>
+        <div class="medal-row">
+          <span class="medal">🏆</span>
+          <span class="medal">🥊</span>
+          <span class="medal">💪</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ HOBBIES ══ -->
+<section class="sec" id="hobbies">
+  <div class="sec-title">
+    <span class="tag tag-teal">Hobbies</span>
+    <h2>Beyond the Classroom</h2>
+    <div class="accent-line"></div>
+  </div>
+  <div class="hobbies-grid">
+    <div class="hobby-col hc-1 pop">
+      <span class="hobby-emoji">🎨</span>
+      <div class="hobby-name">Sketching</div>
+      <div class="hobby-desc">Bringing ideas to life on paper</div>
+    </div>
+    <div class="hobby-col hc-2 pop pop-delay-1">
+      <span class="hobby-emoji">🎵</span>
+      <div class="hobby-name">Listening</div>
+      <div class="hobby-desc">Music fuels the mind</div>
+    </div>
+    <div class="hobby-col hc-3 pop pop-delay-2">
+      <span class="hobby-emoji">📚</span>
+      <div class="hobby-name">Reading</div>
+      <div class="hobby-desc">Knowledge without limits</div>
+    </div>
+    <div class="hobby-col hc-4 pop pop-delay-3">
+      <span class="hobby-emoji">🍳</span>
+      <div class="hobby-name">Cooking</div>
+      <div class="hobby-desc">Creating with flavour</div>
+    </div>
+    <div class="hobby-col hc-5 pop pop-delay-4">
+      <span class="hobby-emoji">✈️</span>
+      <div class="hobby-name">Travelling</div>
+      <div class="hobby-desc">Exploring the world</div>
+    </div>
+    <div class="hobby-col hc-6 pop pop-delay-5">
+      <span class="hobby-emoji">💻</span>
+      <div class="hobby-name">Coding</div>
+      <div class="hobby-desc">Building the future</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LEADERSHIP ══ -->
+<section class="sec sec-alt" id="leadership">
+  <div class="sec-title">
+    <span class="tag tag-amber">Leadership</span>
+    <h2>Leading the Way</h2>
+    <div class="accent-line"></div>
+  </div>
+  <div class="leadership-wrap">
+    <div class="lead-main pop">
+      <div class="crown-wrap">👑</div>
+      <div>
+        <h3>Head Girl — 2 Consecutive Years</h3>
+        <p>
+          I served as <strong>Head Girl for two consecutive years</strong>, 
+          a role that shaped my ability to lead under pressure, initiate meaningful change, 
+          and earn the trust of students, teachers, and faculty alike. 
+          My parents were incredibly proud — seeing me step up and drive real impact 
+          in school is something that makes me deeply proud to this day.
+          Being <strong>capable of doing and initiating things</strong> is my greatest personal achievement.
+        </p>
+      </div>
+    </div>
+    <div class="lead-values">
+      <div class="lv-card pop pop-delay-1">
+        <span class="lv-icon">⚡</span>
+        <div class="lv-title">Initiative</div>
+        <div class="lv-sub">Started programs &amp; activities</div>
+      </div>
+      <div class="lv-card pop pop-delay-2">
+        <span class="lv-icon">🤝</span>
+        <div class="lv-title">Trust</div>
+        <div class="lv-sub">Earned by peers &amp; faculty</div>
+      </div>
+      <div class="lv-card pop pop-delay-3">
+        <span class="lv-icon">💛</span>
+        <div class="lv-title">Family Pride</div>
+        <div class="lv-sub">Parents &amp; loved ones</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey Timeline -->
+  <div style="margin-top:3rem;">
+    <div class="sec-title" style="margin-bottom:2rem;">
+      <span class="tag tag-lav">Journey</span>
+      <h2>My Story So Far</h2>
+      <div class="accent-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item tl-teal pop">
+        <div class="tl-year">Non-tech Background</div>
+        <div class="tl-title">The Beginning</div>
+        <div class="tl-desc">Started from a non-tech background with big dreams and relentless drive.</div>
+      </div>
+      <div class="tl-item tl-amber pop pop-delay-1">
+        <div class="tl-year">School Years</div>
+        <div class="tl-title">Head Girl · 2 Years</div>
+        <div class="tl-desc">Led the student body, initiated programs, and made my family proud.</div>
+      </div>
+      <div class="tl-item tl-rose pop pop-delay-2">
+        <div class="tl-year">Sports Career</div>
+        <div class="tl-title">State · District · Zone Champion</div>
+        <div class="tl-desc">Won across Badminton, Karate, and Boxing — building discipline for life.</div>
+      </div>
+      <div class="tl-item tl-lav pop pop-delay-3">
+        <div class="tl-year">College</div>
+        <div class="tl-title">B.Tech — CE &amp; AI</div>
+        <div class="tl-desc">Pursuing Computer Engineering &amp; AI, exploring programming and tech solutions.</div>
+      </div>
+      <div class="tl-item tl-sage pop pop-delay-4">
+        <div class="tl-year">Future</div>
+        <div class="tl-title">Indian Air Force</div>
+        <div class="tl-desc">Chase the dream — serve the nation, soar beyond the sky.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="sec-title" style="justify-content:center;margin-bottom:1rem;">
+      <h2 style="font-size:1.8rem;font-weight:900;color:var(--white);">Get In Touch</h2>
+    </div>
+    <p class="sub">
+      Whether it's tech, AI, career conversations, or just a hello —<br/>
+      my inbox is always open. Let's connect!
+    </p>
+    <div class="contact-grid">
+      <a class="contact-btn cb-email" href="mailto:kritikagarg1611@gmail.com">
+        <span>📧</span> kritikagarg1611@gmail.com
+      </a>
+    </div>
+    <div class="quote-block pop">
+      <p>
+        <span>"</span> The combo of academics, sports, leadership, and creativity — 
+        all in once — is a hit. I am proud of being capable of doing and 
+        initiating things. <span>"</span>
+        <br/><br/>
+        <span style="color:var(--text-dim);font-size:.82rem;font-style:normal;">— Kritika Garg</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p>Designed with purpose &nbsp;·&nbsp; © 2026 <strong>Kritika Garg</strong> &nbsp;·&nbsp; All rights reserved</p>
+  <p style="margin-top:.4rem;">Dream Big &nbsp;·&nbsp; Work Hard &nbsp;·&nbsp; Fly High ✈️</p>
+</footer>
+
+<script>
+  /* ── Hamburger ── */
+  document.getElementById('hamburger').addEventListener('click',function(){
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  /* ── Pop on scroll ── */
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.pop').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
+
